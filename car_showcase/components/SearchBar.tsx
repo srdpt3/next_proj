@@ -1,5 +1,8 @@
 "use client";
+
+import Image from "next/image";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import SearchManufacturer from "./SearchManufacturer";
 
 const SearchBar = () => {
@@ -10,7 +13,7 @@ const SearchBar = () => {
       <div className="searchbar__item">
         <SearchManufacturer
           manufacturer={manufacturer}
-          setManufacturer={setManufacturer}
+          setManuFacturer={setManufacturer}
         ></SearchManufacturer>
       </div>
     </form>
