@@ -16,7 +16,7 @@ const SetupPage = () => {
     }
   }, [isOpen, onOpen]);
 
-  return null;
+  return <div>rerer</div>;
 };
 
 export default SetupPage;
