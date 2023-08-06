@@ -1,21 +1,26 @@
-import { useStoreModal } from "@/hooks/use-store-modal";
-import React, { useState } from "react";
-import { Modal } from "@/components/modals/ui/modal";
-import { useForm } from "react-hook-form";
+"use client";
+
 import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+import { Modal } from "@/components/ui/modal";
+import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "./ui/form";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { toast } from "react-hot-toast";
+} from "@/components/ui/form";
+import { useStoreModal } from "@/hooks/use-store-modal";
+import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -39,6 +44,7 @@ export const StoreModal = () => {
       const resp = await axios.post("/api/stores", values);
       console.log(resp);
       toast.success("Store Created");
+      window.location.assign(`/${resp.data.id}`);
     } catch (error) {
       toast.error("Something is wrong");
     } finally {
