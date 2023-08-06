@@ -1,9 +1,6 @@
 "use client";
 
-import { Button } from "@/components/modals/ui/button";
-import { Modal } from "@/components/modals/ui/modal";
 import { useStoreModal } from "@/hooks/use-store-modal";
-import { UserButton } from "@clerk/nextjs";
 import React, { useEffect } from "react";
 
 const SetupPage = () => {
@@ -16,7 +13,7 @@ const SetupPage = () => {
     }
   }, [isOpen, onOpen]);
 
-  return <div>rerer</div>;
+  return null;
 };
 
 export default SetupPage;
