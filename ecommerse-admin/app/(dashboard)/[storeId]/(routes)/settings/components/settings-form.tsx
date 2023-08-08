@@ -22,6 +22,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import AlertModal from "@/components/modals/alert-modal";
+import { ApiAlert } from "@/components/ui/api-alert";
 const formSchema = z.object({
   name: z.string().min(2),
 });
@@ -74,6 +76,12 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
 
   return (
     <>
+      <AlertModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onConfirm={onDelete}
+        loading={loading}
+      />
       <div className="flex items-center justify-between">
         <Heading
           title="Settings"
@@ -89,7 +97,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
           <Trash className="h-4 w-4"></Trash>
         </Button>
       </div>
-      <Separator></Separator>
+      <Separator />
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -120,6 +128,12 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
           <Separator />
         </form>
       </Form>
+      <Separator />
+      <ApiAlert
+        title="NEXT_PUBLIC_API_URL"
+        description={`${origin}/api/${params.storeId}`}
+        variant="public"
+      ></ApiAlert>
     </>
   );
 };
