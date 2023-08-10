@@ -22,7 +22,11 @@ import {
 } from "@/components/ui/form";
 import { Separator } from "@/components/ui/separator";
 import Heading from "@/components/ui/heading";
+// import { columns, BillboardColumn } from "./columns";
 
+interface BillboardClientProps {
+  // data: BillboardColumn[];
+}
 const formSchema = z.object({
   label: z.string().min(1),
   imageUrl: z.string().min(1),
@@ -30,42 +34,32 @@ const formSchema = z.object({
 
 type BillboardFormValues = z.infer<typeof formSchema>;
 
-interface BillboardFormProps {
+interface BillboardClient {
   initialData: null;
 }
 
-export const BillboardForm: React.FC<BillboardFormProps> = ({
-  initialData,
-}) => {
+export const BillboardClient: React.FC<BillboardClientProps> = () => {
   const params = useParams();
   const router = useRouter();
-
-  const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const title = initialData ? "Edit billboard" : "Create billboard";
-  const description = initialData ? "Edit a billboard." : "Add a new billboard";
-  const toastMessage = initialData
-    ? "Billboard updated."
-    : "Billboard created.";
-  const action = initialData ? "Save changes" : "Create";
 
   return (
     <>
       <div className="flex items-center justify-between">
-        <Heading title={title} description={description} />
-        {initialData && (
-          <Button
-            disabled={loading}
-            variant="destructive"
-            size="sm"
-            onClick={() => setOpen(true)}
-          >
-            <Trash className="h-4 w-4" />
-          </Button>
-        )}
+        <Heading
+          title={`Billboards `}
+          description="Manage billboards for your store"
+        />
+        <Button
+          onClick={() => router.push(`/${params.storeId}/billboards/new`)}
+        >
+          <Plus className="mr-2 h-4 w-4" /> Add New
+        </Button>
       </div>
       <Separator />
+      {/* <DataTable searchKey="label" columns={columns} data={data} />
+      <Heading title="API" description="API Calls for Billboards" />
+      <Separator />
+      <ApiList entityName="billboards" entityIdName="billboardId" /> */}
     </>
   );
 };
