@@ -24,21 +24,21 @@ import { Separator } from "@/components/ui/separator";
 import Heading from "@/components/ui/heading";
 // import { columns, BillboardColumn } from "./columns";
 
-interface BillboardClientProps {
-  // data: BillboardColumn[];
-}
-const formSchema = z.object({
-  label: z.string().min(1),
-  imageUrl: z.string().min(1),
-});
+// interface BillboardClientProps {
+//   // data: BillboardColumn[];
+// }
+// const formSchema = z.object({
+//   label: z.string().min(1),
+//   imageUrl: z.string().min(1),
+// });
 
-type BillboardFormValues = z.infer<typeof formSchema>;
+// type BillboardFormValues = z.infer<typeof formSchema>;
 
-interface BillboardClient {
-  initialData: null;
-}
+// interface BillboardClient {
+//   initialData: null;
+// }
 
-export const BillboardClient: React.FC<BillboardClientProps> = () => {
+export const BillboardClient = () => {
   const params = useParams();
   const router = useRouter();
 
@@ -46,7 +46,7 @@ export const BillboardClient: React.FC<BillboardClientProps> = () => {
     <>
       <div className="flex items-center justify-between">
         <Heading
-          title={`Billboards `}
+          title="Billboards (0)"
           description="Manage billboards for your store"
         />
         <Button
