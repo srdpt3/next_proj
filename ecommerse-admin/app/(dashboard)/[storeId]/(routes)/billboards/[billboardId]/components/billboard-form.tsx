@@ -23,7 +23,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import AlertModal from "@/components/modals/alert-modal";
-import { ApiAlert } from "@/components/ui/api-alert";
 import useOrigin from "@/hooks/use-origin";
 import ImageUpload from "@/components/ui/image-upload";
 
@@ -41,7 +40,6 @@ interface BillboardFormProps {
 const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
   const params = useParams();
   const router = useRouter();
-  const origin = useOrigin();
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);

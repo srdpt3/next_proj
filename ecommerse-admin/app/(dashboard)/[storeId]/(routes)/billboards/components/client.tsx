@@ -22,11 +22,13 @@ import {
 } from "@/components/ui/form";
 import { Separator } from "@/components/ui/separator";
 import Heading from "@/components/ui/heading";
+import { BillboardColumn, columns } from "./columns";
+import { DataTable } from "@/components/ui/data-table";
 // import { columns, BillboardColumn } from "./columns";
 
-// interface BillboardClientProps {
-//   // data: BillboardColumn[];
-// }
+interface BillboardClientProps {
+  data: BillboardColumn[];
+}
 // const formSchema = z.object({
 //   label: z.string().min(1),
 //   imageUrl: z.string().min(1),
@@ -38,7 +40,7 @@ import Heading from "@/components/ui/heading";
 //   initialData: null;
 // }
 
-export const BillboardClient = () => {
+export const BillboardClient: React.FC<BillboardClientProps> = ({ data }) => {
   const params = useParams();
   const router = useRouter();
 
@@ -46,7 +48,7 @@ export const BillboardClient = () => {
     <>
       <div className="flex items-center justify-between">
         <Heading
-          title="Billboards (0)"
+          title={`Billboards (${data.length})`}
           description="Manage billboards for your store"
         />
         <Button
@@ -56,10 +58,9 @@ export const BillboardClient = () => {
         </Button>
       </div>
       <Separator />
-      {/* <DataTable searchKey="label" columns={columns} data={data} />
+      <DataTable searchKey="label" columns={columns} data={data}></DataTable>
       <Heading title="API" description="API Calls for Billboards" />
       <Separator />
-      <ApiList entityName="billboards" entityIdName="billboardId" /> */}
     </>
   );
 };
