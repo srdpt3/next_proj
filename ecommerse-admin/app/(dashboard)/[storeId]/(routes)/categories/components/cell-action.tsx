@@ -3,7 +3,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
-import { BillboardColumn } from "./columns";
+import { CategoryColumn } from "./columns";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -17,7 +17,7 @@ import { useParams, useRouter } from "next/navigation";
 import AlertModal from "@/components/modals/alert-modal";
 
 interface CellActionProps {
-  data: BillboardColumn;
+  data: CategoryColumn;
 }
 
 const CellAction: React.FC<CellActionProps> = ({ data }) => {
