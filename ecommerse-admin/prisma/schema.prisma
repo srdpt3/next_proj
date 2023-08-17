@@ -12,18 +12,18 @@ datasource db {
 }
 
 model Store {
-  id        String   @id @default(uuid())
-  name      String
-  userId    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String      @id @default(uuid())
+  name       String
+  userId     String
+  billboards Billboard[] @relation("StoreToBillboard")
+  categories Category[]  @relation("StoreToCategory")
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
   // Product    Product[]
   // Order      Order[]
   // Size       Size[]
   // Color      Color[]
-
-  billboards Billboard[]
-  Categories Category[]
+  sizes      Size[]      @relation("StoreToSize")
 }
 
 model Billboard {
@@ -34,7 +34,7 @@ model Billboard {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   Category  Category[]
-  Store     Store      @relation(fields: [storeId], references: [id])
+  store     Store      @relation("StoreToBillboard", fields: [storeId], references: [id])
 
   @@index([storeId])
 }
@@ -48,8 +48,21 @@ model Category {
   // products    Product[] @relation("CategoryToProduct")
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  Store       Store     @relation(fields: [storeId], references: [id])
+  store       Store     @relation("StoreToCategory", fields: [storeId], references: [id])
 
   @@index([storeId])
   @@index([billboardId])
+}
+
+model Size {
+  id        String   @id @default(uuid())
+  storeId   String // Foreign Key to Store
+  store     Store    @relation("StoreToSize", fields: [storeId], references: [id])
+  name      String
+  value     String
+  // products  Product[] // Relation to Product model
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([storeId])
 }
