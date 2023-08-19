@@ -1,12 +1,6 @@
 "use client";
 
-import * as z from "zod";
-import axios from "axios";
-import { useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { toast } from "react-hot-toast";
-import { Plus, Trash } from "lucide-react";
+import { Plus } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 // import { Product } from "@prisma/client";
 
