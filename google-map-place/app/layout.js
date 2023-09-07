@@ -1,5 +1,6 @@
 "use client";
 import Provider from "./Provider";
+import HeaderNavBar from "./components/HeaderNavBar";
 import "./globals.css";
 import { Raleway } from "next/font/google";
 import { useEffect, useState } from "react";
@@ -31,7 +32,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={[raleway.className]}>
-        <Provider>{children}</Provider>
+        <Provider>
+          <HeaderNavBar />
+          {children}
+        </Provider>
       </body>
     </html>
   );
