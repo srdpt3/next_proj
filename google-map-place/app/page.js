@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import CategoryList from "./components/Home/CategoryList";
+import { RangeSelect } from "./components/Home/RangeSelect";
+import { SelectRating } from "./components/Home/SelectRating";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -18,6 +20,8 @@ export default function Home() {
     <div className="grid grid-cols-4 h-screen">
       <div className="p-3">
         <CategoryList />
+        <RangeSelect />
+        <SelectRating />
       </div>
       <div className="col-span-3">Second</div>
 
