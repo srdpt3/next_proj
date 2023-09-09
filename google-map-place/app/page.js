@@ -7,23 +7,26 @@ import { useEffect } from "react";
 import CategoryList from "./components/Home/CategoryList";
 import { RangeSelect } from "./components/Home/RangeSelect";
 import { SelectRating } from "./components/Home/SelectRating";
+import { GoogleMapView } from "./components/Home/GoogleMapView";
 
 export default function Home() {
   const { data: session } = useSession();
   const router = useRouter();
   useEffect(() => {
-    if (!session.user) {
+    if (!session?.user) {
       router.push("/Login");
     }
   }, [session]);
   return (
-    <div className="grid grid-cols-4 h-screen">
+    <div className="grid grid-cols-1 md:grid-cols-4 h-screen">
       <div className="p-3">
         <CategoryList />
         <RangeSelect />
         <SelectRating />
       </div>
-      <div className="col-span-3">Second</div>
+      <div className="col-span-3">
+        <GoogleMapView />
+      </div>
 
       {/* <button onClick={() => signOut()}>SignOut</button> */}
     </div>
