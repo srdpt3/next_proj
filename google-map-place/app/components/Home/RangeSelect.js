@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export const RangeSelect = () => {
+export const RangeSelect = ({ onRadiusChange }) => {
   const [radius, setRadius] = useState(2500);
   return (
     <div className="mt-5 px-2">
