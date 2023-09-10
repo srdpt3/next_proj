@@ -1,6 +1,7 @@
 "use client";
 import Provider from "./Provider";
 import HeaderNavBar from "./components/HeaderNavBar";
+import { SelectedBusinessContext } from "./context/SelectedBusinessContext";
 import { UserLocationContext } from "./context/UserLocationContext";
 import "./globals.css";
 import { Raleway } from "next/font/google";
@@ -34,12 +35,16 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={[raleway.className]}>
         <Provider>
-          <UserLocationContext.Provider
-            value={{ userLocation, setUserLocation }}
+          <SelectedBusinessContext.Provider
+            value={{ selectedBusiness, setSelectedBusiness }}
           >
-            <HeaderNavBar />
-            {children}
-          </UserLocationContext.Provider>
+            <UserLocationContext.Provider
+              value={{ userLocation, setUserLocation }}
+            >
+              <HeaderNavBar />
+              {children}
+            </UserLocationContext.Provider>
+          </SelectedBusinessContext.Provider>
         </Provider>
       </body>
     </html>

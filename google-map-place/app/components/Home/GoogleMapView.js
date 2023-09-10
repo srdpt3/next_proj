@@ -1,15 +1,27 @@
 import { UserLocationContext } from "../../context/UserLocationContext";
 import { GoogleMap, LoadScript, MarkerF } from "@react-google-maps/api";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { Marker } from "./Marker";
+import { SelectedBusinessContext } from "../../context/SelectedBusinessContext";
 
-export const GoogleMapView = () => {
+export const GoogleMapView = ({ businessList }) => {
   const { userLocation, setUserLocation } = useContext(UserLocationContext);
+  const { selectedBusiness, setSelectedBusiness } = useContext(
+    SelectedBusinessContext
+  );
+  const [map, setMap] = useState();
+
   const mapContainerStyle = {
     width: "100%",
     height: "70vh",
   };
-  const coordinate = { lat: 40.776676, lng: -73.971321 };
+  // const coordinate = { lat: 40.776676, lng: -73.971321 };
   console.log(userLocation);
+  useEffect(() => {
+    if (map && selectedBusiness) {
+      map.panTo(selectedBusiness.geometry.location);
+    }
+  }, [selectedBusiness]);
   return (
     <div>
       <LoadScript
@@ -18,20 +30,28 @@ export const GoogleMapView = () => {
       >
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
-          center={userLocation}
+          center={
+            !selectedBusiness.name
+              ? userLocation
+              : selectedBusiness.geometry.location
+          }
           options={{ mapId: "a63db265ecf0101c" }}
           zoom={12}
+          onLoad={(map) => setMap(map)}
         >
           <MarkerF
             position={userLocation}
             icon={{
-              url: "https://cdn-icons-png.flaticon.com/512/1577/1577393.png",
+              url: "./user-location.png",
               scaledSize: {
                 width: 50,
                 height: 50,
               },
             }}
           />
+          {businessList.map((item, index) => (
+            <Marker business={item} key={index} />
+          ))}
         </GoogleMap>
       </LoadScript>
     </div>

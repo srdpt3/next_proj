@@ -1,16 +1,75 @@
 import Image from "next/image";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { SelectedBusinessContext } from "../../context/SelectedBusinessContext";
+import { UserLocationContext } from "../../context/UserLocationContext";
 
-export const BusinessItem = ({ business }) => {
+export const BusinessItem = ({ business, showDir = false }) => {
+  const GOOGLE_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
+  const photo_ref = business?.photos
+    ? business?.photos[0]?.photo_reference
+    : "";
+  const { userLocation, setUserLocation } = useContext(UserLocationContext);
+  const [distance, setDistance] = useState();
+  useEffect(() => {
+    calculateDistance(
+      business.geometry.location.lat,
+      business.geometry.location.lng,
+      userLocation.lat,
+      userLocation.lng
+    );
+  }, []);
+
+  const calculateDistance = (lat1, lon1, lat2, lon2) => {
+    const earthRadius = 6371; // in kilometers
+
+    const degToRad = (deg) => {
+      return deg * (Math.PI / 180);
+    };
+
+    const dLat = degToRad(lat2 - lat1);
+    const dLon = degToRad(lon2 - lon1);
+
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(degToRad(lat1)) *
+        Math.cos(degToRad(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    const distance = earthRadius * c;
+
+    setDistance(distance.toFixed(1));
+    return distance.toFixed(2); // Return the distance with 2 decimal places
+  };
+
+  const onDirectionClick = () => {
+    window.open(
+      "https://www.google.com/maps/dir/?api=1&origin=" +
+        userLocation.lat +
+        "," +
+        userLocation.lng +
+        "&destination=" +
+        business.geometry.location.lat +
+        "," +
+        business.geometry.location.lng +
+        "&travelmode=driving"
+    );
+  };
   return (
-    <div className="w-[180px] flex-shrink-0 p-2  rounded-lg bg-white">
+    <div
+      className="w-[195px] flex-shrink-0 p-2
+     rounded-lg shadow-md mb-1
+     bg-white hover:scale-110 transition-all mt-[20px] cursor-pointer"
+    >
       <Image
-        src="/placeholder.jpeg"
+        src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo_ref}&key=${GOOGLE_API_KEY}`}
         alt={business.name}
         width={180}
         height={80}
-        className="rounded-lg object-cover"
-      ></Image>
+        className="rounded-lg object-cover h-[90px] "
+      />
       <h2 className="text-[13px] font-bold mt-1 line-clamp-1">
         {business.name}
       </h2>
@@ -35,6 +94,19 @@ export const BusinessItem = ({ business }) => {
         </svg>
         <h2 className="text-[10px] font-bold">{business.rating}</h2>
       </div>
+      {showDir ? (
+        <div className="border-t-[1px] p-1 mt-1 pt-1 ">
+          <h2 className="text-[#0075ff] flex justify-between items-center">
+            Dist:{distance} Mile
+            <span
+              className="border-[1px] p-1 rounded-full border-blue-500 hover:text-white hover:bg-blue-500"
+              onClick={() => onDirectionClick()}
+            >
+              Get Direction
+            </span>
+          </h2>
+        </div>
+      ) : null}
     </div>
   );
 };

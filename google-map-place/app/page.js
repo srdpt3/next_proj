@@ -11,12 +11,14 @@ import { GoogleMapView } from "./components/Home/GoogleMapView";
 import GlobalApi from "./Shared/GlobalApi";
 import { UserLocationContext } from "./context/UserLocationContext";
 import { BusinessList } from "./components/Home/BusinessList";
+import { SkeletonLoading } from "./components/SkeletonLoading";
 
 export default function Home() {
   const { data: session } = useSession();
   const [category, setCategory] = useState("rooftop");
   const [radius, setRadius] = useState(1000);
   const [businessList, setBusinessList] = useState([]);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
   const { userLocation, setUserLocation } = useContext(UserLocationContext);
 
@@ -31,6 +33,7 @@ export default function Home() {
   }, [category, radius]);
 
   const getGooglePlace = () => {
+    setLoading(true);
     GlobalApi.getGooglePlace(
       category,
       radius,
@@ -39,6 +42,7 @@ export default function Home() {
     ).then((resp) => {
       console.log(resp.data.product.results);
       setBusinessList(resp.data.product.results);
+      setLoading(false);
     });
   };
   return (
@@ -49,9 +53,20 @@ export default function Home() {
         <SelectRating />
       </div>
       <div className="col-span-3">
-        <GoogleMapView />
-        <div className="relative md:absolute w-[90%] md:w-[71%] ml-6 md:ml-10 bottom-36 md:bottom-3">
-          <BusinessList businessList={businessList} />
+        <GoogleMapView businessList={businessList} />
+        <div
+          className="md:absolute mx-2 w-[90%] md:w-[74%]
+           bottom-36 relative md:bottom-3"
+        >
+          {!loading ? (
+            <BusinessList businessList={businessList} />
+          ) : (
+            <div className="flex gap-3">
+              {[1, 2, 3, 4, 5].map((item, index) => (
+                <SkeletonLoading key={index} />
+              ))}
+            </div>
+          )}{" "}
         </div>
       </div>
 
