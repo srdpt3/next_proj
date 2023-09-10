@@ -36,7 +36,7 @@ export const GoogleMapView = ({ businessList }) => {
               : selectedBusiness.geometry.location
           }
           options={{ mapId: "a63db265ecf0101c" }}
-          zoom={12}
+          zoom={13}
           onLoad={(map) => setMap(map)}
         >
           <MarkerF

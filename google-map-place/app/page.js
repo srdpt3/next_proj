@@ -15,7 +15,7 @@ import { SkeletonLoading } from "./components/SkeletonLoading";
 
 export default function Home() {
   const { data: session } = useSession();
-  const [category, setCategory] = useState("rooftop");
+  const [category, setCategory] = useState("Michelin restaurant");
   const [radius, setRadius] = useState(1000);
   const [businessList, setBusinessList] = useState([]);
   const [loading, setLoading] = useState(true);

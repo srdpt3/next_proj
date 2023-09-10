@@ -1,33 +1,33 @@
 const CategoryListData = [
   {
     id: 1,
-    name: "Indian",
-    value: "Indian restaurant",
-    icon: "/masala-dosa.png",
+    name: "Michelin",
+    value: "Michelin restaurant",
+    icon: "/michelin.jpg",
   },
   {
     id: 2,
-    name: "Mexican",
-    value: "Mexican restaurant",
-    icon: "/taco.png",
+    name: "Dating",
+    value: "Dating restaurant",
+    icon: "/dating.png",
   },
   {
     id: 3,
-    name: "Italian",
-    value: "Italian restaurant",
-    icon: "/ramen.png",
+    name: "Speak Easy",
+    value: "Speak Easy",
+    icon: "/bar.png",
   },
   {
     id: 4,
-    name: "Chinese",
-    value: "Chinese restaurant",
-    icon: "/pizza.png",
+    name: "Rooftop bar",
+    value: "rooftop",
+    icon: "/lounge.png",
   },
   {
     id: 4,
-    name: "Japanese",
-    value: "japanese restaurant",
-    icon: "/bento.png",
+    name: "Wine Bar",
+    value: "Wine Bar",
+    icon: "/winebar.png",
   },
 ];
 
